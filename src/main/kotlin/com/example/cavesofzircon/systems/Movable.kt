@@ -2,6 +2,7 @@ package com.example.cavesofzircon.systems
 
 import com.example.cavesofzircon.attributes.types.Player
 import com.example.cavesofzircon.extensions.position
+import com.example.cavesofzircon.extensions.tryActionsOn
 import com.example.cavesofzircon.messages.MoveCamera
 import com.example.cavesofzircon.messages.MoveTo
 import com.example.cavesofzircon.world.GameContext
@@ -21,20 +22,25 @@ object Movable : BaseFacet<GameContext, MoveTo>(MoveTo::class) {
     val world = context.world
     val previousPosition = entity.position
 
-    return if (world.moveEntity(entity, position)) {
-      return if (entity.type == Player) {
-        MessageResponse(
-          MoveCamera(
-            context = context,
-            source = entity,
-            previousPosition = previousPosition
-          )
-        )
+    var result: Response = Pass
+    world.fetchBlockAtOrNull(position)?.let { block ->
+      if (block.isOccupied) {
+        result = entity.tryActionsOn(context, block.occupier.get())
       } else {
-        Consumed
+        if (world.moveEntity(entity, position)) {
+          result = Consumed
+          if (entity.type == Player) {
+            result = MessageResponse(
+              MoveCamera(
+                context = context,
+                source = entity,
+                previousPosition = previousPosition
+              )
+            )
+          }
+        }
       }
-    } else {
-      Pass
     }
+    return result
   }
 }

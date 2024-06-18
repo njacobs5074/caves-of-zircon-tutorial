@@ -7,3 +7,5 @@ import org.hexworks.amethyst.api.base.BaseEntityType
  * @since 2024/06/16
  */
 object Player : BaseEntityType(name = "player")
+
+object Wall : BaseEntityType(name = "wall")

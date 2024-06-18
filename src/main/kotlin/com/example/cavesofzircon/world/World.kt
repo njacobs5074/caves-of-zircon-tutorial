@@ -110,6 +110,14 @@ class World(
     }
   }
 
+  fun removeEntity(entity: Entity<EntityType, GameContext>) {
+    fetchBlockAt(entity.position).map {
+      it.removeEntity(entity)
+    }
+    engine.removeEntity(entity)
+    entity.position = Position3D.unknown()
+  }
+
   private fun bothBlocksPresent(oldBlock: Maybe<GameBlock>, newBlock: Maybe<GameBlock>) =
     oldBlock.isPresent && newBlock.isPresent
 }
