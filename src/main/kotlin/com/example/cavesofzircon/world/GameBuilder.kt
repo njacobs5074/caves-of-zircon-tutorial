@@ -1,6 +1,7 @@
 package com.example.cavesofzircon.world
 
 import com.example.cavesofzircon.GameConfig.DUNGEON_LEVELS
+import com.example.cavesofzircon.GameConfig.FUNGI_PER_LEVEL
 import com.example.cavesofzircon.GameConfig.LOG_AREA_HEIGHT
 import com.example.cavesofzircon.GameConfig.SIDEBAR_WIDTH
 import com.example.cavesofzircon.GameConfig.WINDOW_HEIGHT
@@ -10,14 +11,16 @@ import com.example.cavesofzircon.attributes.types.Player
 import com.example.cavesofzircon.builders.EntityFactory
 import com.example.cavesofzircon.builders.WorldBuilder
 import com.example.cavesofzircon.extensions.GameEntity
+import org.hexworks.amethyst.api.entity.EntityType
 import org.hexworks.zircon.api.data.Position3D
+import org.hexworks.zircon.api.data.Size
 import org.hexworks.zircon.api.data.Size3D
 
 /**
  * @author nick
  * @since 2024/06/16
  */
-class GameBuilder(val worldSize: Size3D) {
+class GameBuilder(private val worldSize: Size3D) {
   private val visibleSize = Size3D.create(
     xLength = WINDOW_WIDTH - SIDEBAR_WIDTH,
     yLength = WINDOW_HEIGHT - LOG_AREA_HEIGHT,
@@ -31,6 +34,7 @@ class GameBuilder(val worldSize: Size3D) {
   fun buildGame(): Game {
     prepareWorld()
     val player = addPlayer()
+    addFungi()
 
     return Game.create(player, world)
   }
@@ -40,13 +44,30 @@ class GameBuilder(val worldSize: Size3D) {
   }
 
   private fun addPlayer(): GameEntity<Player> {
-    val player = EntityFactory.newPlayer()
-    world.addAtEmptyPosition(
-      player,
-      offset = Position3D.create(0, 0, DUNGEON_LEVELS - 1),
-      size = world.visibleSize.copy(zLength = 0)
+    return EntityFactory.newPlayer().addToWorld(
+      atLevel = DUNGEON_LEVELS - 1,
+      atArea = world.visibleSize.to2DSize()
     )
-    return player
+  }
+
+  private fun addFungi() = also {
+    repeat(world.actualSize.zLength) { level ->
+      repeat(FUNGI_PER_LEVEL) {
+        EntityFactory.newFungus().addToWorld(level)
+      }
+    }
+  }
+
+  private fun <T : EntityType> GameEntity<T>.addToWorld(
+    atLevel: Int,
+    atArea: Size = world.actualSize.to2DSize()
+  ): GameEntity<T> {
+    world.addAtEmptyPosition(
+      this,
+      offset = Position3D.defaultPosition().withZ(atLevel),
+      size = Size3D.from2DSize(atArea)
+    )
+    return this
   }
 
   companion object {

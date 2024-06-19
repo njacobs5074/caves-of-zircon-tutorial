@@ -28,6 +28,9 @@ object GameConfig {
     zLength = DUNGEON_LEVELS
   )
 
+  const val FUNGI_PER_LEVEL = 15
+  const val MAXIMUM_FUNGUS_SPREAD = 20
+
   fun buildAppConfig() = AppConfig.newBuilder()
     .withDefaultTileset(TILESET)
     .withSize(WINDOW_WIDTH, WINDOW_HEIGHT)

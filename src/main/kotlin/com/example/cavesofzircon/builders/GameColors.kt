@@ -14,4 +14,6 @@ object GameColors {
   val FLOOR_BACKGROUND = TileColor.fromString("#1E2320")
 
   val ACCENT_COLOR = TileColor.fromString("#FFCD22")
+
+  val FUNGUS_COLOR = TileColor.fromString("#85DD1B")
 }

@@ -41,7 +41,7 @@ class World(
     }
   }
 
-  private fun addEntity(entity: Entity<EntityType, GameContext>, position: Position3D) {
+  fun addEntity(entity: Entity<EntityType, GameContext>, position: Position3D) {
     entity.position = position
     engine.addEntity(entity)
     fetchBlockAt(position).map {
@@ -49,7 +49,7 @@ class World(
     }
   }
 
-  private fun findEmptyLocationWithin(offset: Position3D, size: Size3D): Maybe<Position3D> {
+  fun findEmptyLocationWithin(offset: Position3D, size: Size3D): Maybe<Position3D> {
     var position = Maybe.empty<Position3D>()
     val maxTries = 10
     var currentTry = 0
