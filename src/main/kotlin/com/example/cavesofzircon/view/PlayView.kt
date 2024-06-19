@@ -6,9 +6,12 @@ import com.example.cavesofzircon.GameConfig.SIDEBAR_WIDTH
 import com.example.cavesofzircon.GameConfig.WINDOW_HEIGHT
 import com.example.cavesofzircon.GameConfig.WINDOW_WIDTH
 import com.example.cavesofzircon.builders.GameTileRepository.FLOOR
+import com.example.cavesofzircon.events.GameLogEvent
 import com.example.cavesofzircon.world.Game
 import com.example.cavesofzircon.world.GameBuilder
 import org.hexworks.cobalt.databinding.api.extension.toProperty
+import org.hexworks.cobalt.events.api.KeepSubscription
+import org.hexworks.cobalt.events.api.subscribeTo
 import org.hexworks.zircon.api.ComponentDecorations.box
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.component.ColorTheme
@@ -19,6 +22,7 @@ import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.uievent.Processed
 import org.hexworks.zircon.api.view.base.BaseView
+import org.hexworks.zircon.internal.Zircon
 import org.hexworks.zircon.internal.game.impl.GameAreaComponentRenderer
 
 /**
@@ -60,5 +64,14 @@ class PlayView(
     }
 
     screen.addComponents(sidebar, logArea, gameComponent)
+
+    Zircon.eventBus.subscribeTo<GameLogEvent> { (text) ->
+      logArea.addParagraph(
+        paragraph = text,
+        withNewLine = false,
+        withTypingEffectSpeedInMs = 10
+      )
+      KeepSubscription
+    }
   }
 }

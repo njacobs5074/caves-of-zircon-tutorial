@@ -4,6 +4,9 @@ import com.example.cavesofzircon.attributes.EntityActions
 import com.example.cavesofzircon.attributes.EntityPosition
 import com.example.cavesofzircon.attributes.EntityTile
 import com.example.cavesofzircon.attributes.flags.BlockOccupier
+import com.example.cavesofzircon.attributes.types.Combatant
+import com.example.cavesofzircon.attributes.types.Player
+import com.example.cavesofzircon.attributes.types.combatStats
 import com.example.cavesofzircon.world.GameContext
 import org.hexworks.amethyst.api.Attribute
 import org.hexworks.amethyst.api.Consumed
@@ -43,3 +46,8 @@ suspend fun AnyGameEntity.tryActionsOn(context: GameContext, target: AnyGameEnti
   }
   return result
 }
+
+val AnyGameEntity.isPlayer: Boolean
+  get() = this.type == Player
+
+fun GameEntity<Combatant>.hasNoHealthLeft(): Boolean = combatStats.hp <= 0
