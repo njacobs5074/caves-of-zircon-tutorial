@@ -2,9 +2,7 @@ package com.example.cavesofzircon.builders
 
 import com.example.cavesofzircon.attributes.*
 import com.example.cavesofzircon.attributes.flags.BlockOccupier
-import com.example.cavesofzircon.attributes.types.Fungus
-import com.example.cavesofzircon.attributes.types.Player
-import com.example.cavesofzircon.attributes.types.Wall
+import com.example.cavesofzircon.attributes.types.*
 import com.example.cavesofzircon.builders.GameTileRepository.PLAYER
 import com.example.cavesofzircon.messages.Attack
 import com.example.cavesofzircon.messages.Dig
@@ -37,7 +35,7 @@ object EntityFactory {
       )
     )
     behaviors(InputReceiver)
-    facets(Movable, CameraMover)
+    facets(Movable, CameraMover, StairAscender, StairDescender)
   }
 
   fun newWall() = newGameEntityOfType(Wall) {
@@ -63,5 +61,19 @@ object EntityFactory {
     )
     facets(Attackable, Destructible)
     behaviors(FungusGrowth)
+  }
+
+  fun newStairsDown() = newGameEntityOfType(StairsDown) {
+    attributes(
+      EntityTile(GameTileRepository.STAIRS_DOWN),
+      EntityPosition()
+    )
+  }
+
+  fun newStairsUp() = newGameEntityOfType(StairsUp) {
+    attributes(
+      EntityTile(GameTileRepository.STAIRS_UP),
+      EntityPosition()
+    )
   }
 }
