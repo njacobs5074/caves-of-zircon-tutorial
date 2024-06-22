@@ -73,5 +73,8 @@ class PlayView(
       )
       KeepSubscription
     }
+
+    // So that the player can see their initial surroundings
+    game.world.initializePlayerView(screen, game)
   }
 }

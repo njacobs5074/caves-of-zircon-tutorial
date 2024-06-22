@@ -47,8 +47,8 @@ object InputReceiver : BaseBehavior<GameContext>() {
           context
         )
 
-        KeyCode.DOWN -> player.moveDown(context)
-        KeyCode.UP -> player.moveUp(context)
+        KeyCode.GREATER, KeyCode.DOWN -> player.moveDown(context)
+        KeyCode.LESS, KeyCode.UP -> player.moveUp(context)
 
         else -> {
           logger.debug("UI Event ($uiEvent) does not have a corresponding command; it is ignored.")

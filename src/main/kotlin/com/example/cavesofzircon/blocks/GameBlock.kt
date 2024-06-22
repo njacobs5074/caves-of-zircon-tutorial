@@ -1,5 +1,6 @@
 package com.example.cavesofzircon.blocks
 
+import com.example.cavesofzircon.builders.GameTileRepository
 import com.example.cavesofzircon.builders.GameTileRepository.EMPTY
 import com.example.cavesofzircon.builders.GameTileRepository.FLOOR
 import com.example.cavesofzircon.builders.GameTileRepository.PLAYER
@@ -27,6 +28,7 @@ class GameBlock(
 ) {
 
   init {
+    top = GameTileRepository.UNREVEALED
     updateContent()
   }
 

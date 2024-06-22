@@ -32,7 +32,8 @@ object EntityFactory {
         maxHp = 100,
         attackValue = 10,
         defenseValue = 5
-      )
+      ),
+      Vision(9)
     )
     behaviors(InputReceiver)
     facets(Movable, CameraMover, StairAscender, StairDescender)
@@ -42,7 +43,8 @@ object EntityFactory {
     attributes(
       EntityPosition(),
       BlockOccupier,
-      EntityTile(GameTileRepository.WALL)
+      EntityTile(GameTileRepository.WALL),
+      VisionBlocker
     )
     facets(Diggable)
   }
@@ -75,5 +77,9 @@ object EntityFactory {
       EntityTile(GameTileRepository.STAIRS_UP),
       EntityPosition()
     )
+  }
+
+  fun newFogOfWar() = newGameEntityOfType(FOW) {
+    behaviors(FogOfWar)
   }
 }

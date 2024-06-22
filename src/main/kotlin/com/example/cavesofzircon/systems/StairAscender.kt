@@ -3,6 +3,7 @@ package com.example.cavesofzircon.systems
 import com.example.cavesofzircon.attributes.types.StairsUp
 import com.example.cavesofzircon.blocks.GameBlock
 import com.example.cavesofzircon.extensions.position
+import com.example.cavesofzircon.functions.initializePlayerView
 import com.example.cavesofzircon.functions.logGameEvent
 import com.example.cavesofzircon.messages.MoveUp
 import com.example.cavesofzircon.world.GameContext
@@ -25,6 +26,7 @@ object StairAscender : BaseFacet<GameContext, MoveUp>(MoveUp::class) {
         logGameEvent("You move up one level...", StairAscender)
         world.moveEntity(player, playerPos.withRelativeZ(1))
         world.scrollOneUp()
+        initializePlayerView(context)
       } else {
         logGameEvent("You jump and try to reach the ceiling", StairAscender)
       }

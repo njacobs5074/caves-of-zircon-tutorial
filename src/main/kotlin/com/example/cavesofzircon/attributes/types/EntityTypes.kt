@@ -15,3 +15,5 @@ object Fungus : BaseEntityType(name = "fungus"), Combatant
 object StairsDown : BaseEntityType(name = "stairs down")
 
 object StairsUp : BaseEntityType(name = "stairs up")
+
+object FOW : BaseEntityType(name = "Fog of War")

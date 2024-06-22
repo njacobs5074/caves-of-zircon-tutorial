@@ -3,6 +3,7 @@ package com.example.cavesofzircon.extensions
 import com.example.cavesofzircon.attributes.EntityActions
 import com.example.cavesofzircon.attributes.EntityPosition
 import com.example.cavesofzircon.attributes.EntityTile
+import com.example.cavesofzircon.attributes.VisionBlocker
 import com.example.cavesofzircon.attributes.flags.BlockOccupier
 import com.example.cavesofzircon.attributes.types.Combatant
 import com.example.cavesofzircon.attributes.types.Player
@@ -51,3 +52,6 @@ val AnyGameEntity.isPlayer: Boolean
   get() = this.type == Player
 
 fun GameEntity<Combatant>.hasNoHealthLeft(): Boolean = combatStats.hp <= 0
+
+val AnyGameEntity.blocksVision: Boolean
+  get() = this.findAttribute(VisionBlocker::class).isPresent

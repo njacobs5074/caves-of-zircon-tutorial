@@ -3,6 +3,7 @@ package com.example.cavesofzircon.systems
 import com.example.cavesofzircon.attributes.types.StairsDown
 import com.example.cavesofzircon.blocks.GameBlock
 import com.example.cavesofzircon.extensions.position
+import com.example.cavesofzircon.functions.initializePlayerView
 import com.example.cavesofzircon.functions.logGameEvent
 import com.example.cavesofzircon.messages.MoveDown
 import com.example.cavesofzircon.world.GameContext
@@ -25,6 +26,7 @@ object StairDescender : BaseFacet<GameContext, MoveDown>(MoveDown::class) {
         logGameEvent("You move down one level...", StairDescender)
         world.moveEntity(player, playerPos.withRelativeZ(-1))
         world.scrollOneDown()
+        initializePlayerView(context)
       } else {
         logGameEvent("You search for a trapdoor but find nothing", StairDescender)
       }

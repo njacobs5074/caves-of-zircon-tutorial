@@ -14,5 +14,6 @@ data class GameContext(
   val world: World,
   val screen: Screen,
   val uiEvent: UIEvent,
-  val player: GameEntity<Player>
+  val player: GameEntity<Player>,
+  val game: Game
 ) : Context

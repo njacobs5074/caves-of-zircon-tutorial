@@ -3,6 +3,7 @@ package com.example.cavesofzircon.builders
 import com.example.cavesofzircon.builders.GameColors.ACCENT_COLOR
 import com.example.cavesofzircon.builders.GameColors.FLOOR_BACKGROUND
 import com.example.cavesofzircon.builders.GameColors.FUNGUS_COLOR
+import com.example.cavesofzircon.builders.GameColors.UNREVEALED_COLOR
 import com.example.cavesofzircon.builders.GameColors.WALL_BACKGROUND
 import com.example.cavesofzircon.builders.GameColors.WALL_FOREGROUND
 import org.hexworks.zircon.api.data.CharacterTile
@@ -51,5 +52,10 @@ object GameTileRepository {
     .withCharacter('>')
     .withForegroundColor(ACCENT_COLOR)
     .withBackgroundColor(FLOOR_BACKGROUND)
+    .buildCharacterTile()
+
+  val UNREVEALED = Tile.newBuilder()
+    .withCharacter(' ')
+    .withBackgroundColor(UNREVEALED_COLOR)
     .buildCharacterTile()
 }

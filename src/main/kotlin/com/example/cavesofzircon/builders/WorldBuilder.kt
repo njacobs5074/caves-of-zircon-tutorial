@@ -71,8 +71,7 @@ class WorldBuilder(private val worldSize: Size3D) {
   }
 
   private fun generateRandomFloorPositionsOn(level: Int) = sequence {
-    // TODO - Handle the possibility that 2 floors with perfectly
-    // overlapping walls - this loop will never terminate
+    // TODO - Handle the possibility that 2 floors with perfectly overlapping walls - this loop will never terminate
     while (true) {
       var pos = Position3D.unknown()
       while (pos.isUnknown) {

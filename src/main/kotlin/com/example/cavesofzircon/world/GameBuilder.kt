@@ -36,6 +36,8 @@ class GameBuilder(private val worldSize: Size3D) {
     val player = addPlayer()
     addFungi()
 
+    world.addWorldEntity(EntityFactory.newFogOfWar())
+
     return Game.create(player, world)
   }
 
