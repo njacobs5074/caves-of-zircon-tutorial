@@ -3,6 +3,7 @@ package com.example.cavesofzircon.builders
 import com.example.cavesofzircon.attributes.*
 import com.example.cavesofzircon.attributes.flags.BlockOccupier
 import com.example.cavesofzircon.attributes.types.*
+import com.example.cavesofzircon.attributes.types.FogOfWar
 import com.example.cavesofzircon.builders.GameTileRepository.PLAYER
 import com.example.cavesofzircon.messages.Attack
 import com.example.cavesofzircon.messages.Dig
@@ -25,6 +26,7 @@ fun <T : EntityType> newGameEntityOfType(
 object EntityFactory {
   fun newPlayer() = newGameEntityOfType(Player) {
     attributes(
+      BlockOccupier,
       EntityPosition(),
       EntityTile(PLAYER),
       EntityActions(Dig::class, Attack::class),
@@ -36,7 +38,7 @@ object EntityFactory {
       Vision(9)
     )
     behaviors(InputReceiver)
-    facets(Movable, CameraMover, StairAscender, StairDescender)
+    facets(Movable, CameraMover, StairAscender, StairDescender, Attackable, Destructible)
   }
 
   fun newWall() = newGameEntityOfType(Wall) {
@@ -65,6 +67,22 @@ object EntityFactory {
     behaviors(FungusGrowth)
   }
 
+  fun newBat() = newGameEntityOfType(Bat) {
+    attributes(
+      BlockOccupier,
+      EntityPosition(),
+      EntityTile(GameTileRepository.BAT),
+      CombatStats.create(
+        maxHp = 5,
+        attackValue = 2,
+        defenseValue = 1
+      ),
+      EntityActions(Attack::class)
+    )
+    facets(Movable, Attackable, Destructible)
+    behaviors(Wanderer)
+  }
+
   fun newStairsDown() = newGameEntityOfType(StairsDown) {
     attributes(
       EntityTile(GameTileRepository.STAIRS_DOWN),
@@ -79,7 +97,7 @@ object EntityFactory {
     )
   }
 
-  fun newFogOfWar() = newGameEntityOfType(FOW) {
-    behaviors(FogOfWar)
+  fun newFogOfWar() = newGameEntityOfType(FogOfWar) {
+    behaviors(com.example.cavesofzircon.systems.FogOfWar)
   }
 }

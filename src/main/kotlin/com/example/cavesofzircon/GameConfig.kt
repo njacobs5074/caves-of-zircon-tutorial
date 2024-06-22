@@ -31,6 +31,8 @@ object GameConfig {
   const val FUNGI_PER_LEVEL = 15
   const val MAXIMUM_FUNGUS_SPREAD = 20
 
+  const val BATS_PER_LEVEL = 10
+
   fun buildAppConfig() = AppConfig.newBuilder()
     .withDefaultTileset(TILESET)
     .withSize(WINDOW_WIDTH, WINDOW_HEIGHT)

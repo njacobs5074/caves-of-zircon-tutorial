@@ -1,6 +1,7 @@
 package com.example.cavesofzircon.builders
 
 import com.example.cavesofzircon.builders.GameColors.ACCENT_COLOR
+import com.example.cavesofzircon.builders.GameColors.BAT_COLOR
 import com.example.cavesofzircon.builders.GameColors.FLOOR_BACKGROUND
 import com.example.cavesofzircon.builders.GameColors.FUNGUS_COLOR
 import com.example.cavesofzircon.builders.GameColors.UNREVEALED_COLOR
@@ -57,5 +58,11 @@ object GameTileRepository {
   val UNREVEALED = Tile.newBuilder()
     .withCharacter(' ')
     .withBackgroundColor(UNREVEALED_COLOR)
+    .buildCharacterTile()
+
+  val BAT = Tile.newBuilder()
+    .withCharacter('b')
+    .withBackgroundColor(FLOOR_BACKGROUND)
+    .withForegroundColor(BAT_COLOR)
     .buildCharacterTile()
 }

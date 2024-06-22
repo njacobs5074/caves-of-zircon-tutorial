@@ -1,5 +1,6 @@
 package com.example.cavesofzircon.world
 
+import com.example.cavesofzircon.GameConfig.BATS_PER_LEVEL
 import com.example.cavesofzircon.GameConfig.DUNGEON_LEVELS
 import com.example.cavesofzircon.GameConfig.FUNGI_PER_LEVEL
 import com.example.cavesofzircon.GameConfig.LOG_AREA_HEIGHT
@@ -35,6 +36,7 @@ class GameBuilder(private val worldSize: Size3D) {
     prepareWorld()
     val player = addPlayer()
     addFungi()
+    addBats()
 
     world.addWorldEntity(EntityFactory.newFogOfWar())
 
@@ -56,6 +58,14 @@ class GameBuilder(private val worldSize: Size3D) {
     repeat(world.actualSize.zLength) { level ->
       repeat(FUNGI_PER_LEVEL) {
         EntityFactory.newFungus().addToWorld(level)
+      }
+    }
+  }
+
+  private fun addBats() = also {
+    repeat(world.actualSize.zLength) { level ->
+      repeat(BATS_PER_LEVEL) {
+        EntityFactory.newBat().addToWorld(level)
       }
     }
   }

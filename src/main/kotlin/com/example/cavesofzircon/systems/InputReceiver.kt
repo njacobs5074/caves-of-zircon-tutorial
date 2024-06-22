@@ -26,29 +26,49 @@ object InputReceiver : BaseBehavior<GameContext>() {
     val (_, _, uiEvent, player) = context
     val currentPos = player.position
     if (uiEvent is KeyboardEvent) {
-      when (uiEvent.code) {
-        KeyCode.KEY_H -> player.moveTo(
+      when {
+        uiEvent.code == KeyCode.KEY_H -> player.moveTo(
           currentPos.withRelativeX(-1),
           context
         )
 
-        KeyCode.KEY_J -> player.moveTo(
+        uiEvent.code == KeyCode.KEY_J -> player.moveTo(
           currentPos.withRelativeY(1),
           context
         )
 
-        KeyCode.KEY_K -> player.moveTo(
+        uiEvent.code == KeyCode.KEY_K -> player.moveTo(
           currentPos.withRelativeY(-1),
           context
         )
 
-        KeyCode.KEY_L -> player.moveTo(
+        uiEvent.code == KeyCode.KEY_L -> player.moveTo(
           currentPos.withRelativeX(1),
           context
         )
 
-        KeyCode.GREATER, KeyCode.DOWN -> player.moveDown(context)
-        KeyCode.LESS, KeyCode.UP -> player.moveUp(context)
+        uiEvent.code == KeyCode.KEY_N -> player.moveTo(
+          currentPos.withRelativeX(1).withRelativeY(1),
+          context
+        )
+
+        uiEvent.code == KeyCode.KEY_B -> player.moveTo(
+          currentPos.withRelativeX(-1).withRelativeY(1),
+          context
+        )
+
+        uiEvent.code == KeyCode.KEY_Y -> player.moveTo(
+          currentPos.withRelativeX(-1).withRelativeY(-1),
+          context
+        )
+
+        uiEvent.code == KeyCode.KEY_U -> player.moveTo(
+          currentPos.withRelativeX(1).withRelativeY(-1),
+          context
+        )
+
+        uiEvent.key == ">" || uiEvent.code == KeyCode.DOWN -> player.moveDown(context)
+        uiEvent.key == "<" || uiEvent.code == KeyCode.UP -> player.moveUp(context)
 
         else -> {
           logger.debug("UI Event ($uiEvent) does not have a corresponding command; it is ignored.")
